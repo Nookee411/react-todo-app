@@ -10,7 +10,11 @@ const todoSlice = createSlice({
       state.todos.push(action.payload);
     },
     removeTodo: (state, action) => {
-      state.todos.splice(action.payload);
+      const todos = state.todos;
+      const index = todos.map((todo) => todo.id).indexOf(action.payload);
+      if (index >= 0) {
+        todos.splice(index, 1);
+      }
     },
   },
 });

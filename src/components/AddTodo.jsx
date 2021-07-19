@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
-import { store } from "../app/store";
-import { addTodo, removeTodo } from "../features/todo/TodoSlice";
+import { addTodo } from "../features/todo/TodoSlice";
+import { useDispatch } from "react-redux";
 
+let id = 0;
 export function AddTodo() {
+  const dispatch = useDispatch();
   const [todoText, setTodoText] = useState("");
+
   function addTodoClick(e) {
     if (todoText.length) {
-      store.dispatch(addTodo({ contnet: todoText, finished: false }));
+      dispatch(addTodo({ id: id++, content: todoText, finished: false }));
       setTodoText("");
     }
   }

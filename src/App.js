@@ -3,11 +3,6 @@ import { Container, Grid } from "@material-ui/core";
 import { AddTodo } from "./components/AddTodo";
 import { TodoList } from "./components/TodoList";
 
-// const theme = {
-//   root: {
-//     backgroundColor: "black",
-//   },
-// };
 const GRID_SIZES = {
   INPUT_SIZE: 2,
 };
