@@ -1,15 +1,14 @@
-import React from "react";
-import { Container } from "@material-ui/core";
-import { TodoItem } from "./TodoItem";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import TodoItem from './TodoItem';
 
-export function TodoList() {
+export default function TodoList() {
   const todoList = useSelector((state) => state.todos);
   return (
-    <Container>
+    <div>
       {todoList.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
-    </Container>
+    </div>
   );
 }

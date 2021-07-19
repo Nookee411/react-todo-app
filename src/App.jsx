@@ -1,7 +1,7 @@
-import React from "react";
-import { Container, Grid } from "@material-ui/core";
-import { TodoInput } from "./components/TodoInput";
-import { TodoList } from "./components/TodoList";
+import React from 'react';
+import { Container, Grid } from '@material-ui/core';
+import TodoInput from './components/TodoInput';
+import TodoList from './components/TodoList';
 
 const GRID_SIZES = {
   INPUT_SIZE: 2,
@@ -14,7 +14,7 @@ function App() {
         <Grid item xs={GRID_SIZES.INPUT_SIZE}>
           <TodoInput />
         </Grid>
-        <Grid xs={12 - GRID_SIZES.INPUT_SIZE}>
+        <Grid item xs={12 - GRID_SIZES.INPUT_SIZE}>
           <TodoList />
         </Grid>
       </Grid>

@@ -1,31 +1,32 @@
-import React, { useState } from "react";
-import { Grid, TextField, Button } from "@material-ui/core";
-import { addTodo } from "../features/todo/TodoSlice";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { Grid, TextField, Button } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo } from '../store/slices/TodoSlice';
 
-let id = 0;
-export function TodoInput() {
+let id;
+export default function TodoInput() {
+  id = useSelector((state) => state.todos.length);
   const dispatch = useDispatch();
-  const [todoText, setTodoText] = useState("");
+  const [todoText, setTodoText] = useState('');
 
-  function addTodoClick(e) {
+  function addTodoClick() {
     if (todoText.length) {
-      dispatch(addTodo({ id: id++, content: todoText, finished: false }));
-      setTodoText("");
+      dispatch(addTodo({ id: (id += 1), content: todoText, finished: false }));
+      setTodoText('');
     }
   }
   return (
     <Grid container>
-      <Grid item xs={11}>
+      <Grid item>
         <TextField
           value={todoText}
           onChange={(e) => setTodoText(e.target.value)}
           onKeyDown={(e) => {
-            if (e.code === "Enter") addTodoClick();
+            if (e.code === 'Enter') addTodoClick();
           }}
         />
       </Grid>
-      <Grid item xs={1}>
+      <Grid item>
         <Button onClick={addTodoClick}>Add todo</Button>
       </Grid>
     </Grid>
