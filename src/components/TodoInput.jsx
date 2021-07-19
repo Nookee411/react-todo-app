@@ -4,7 +4,7 @@ import { addTodo } from "../features/todo/TodoSlice";
 import { useDispatch } from "react-redux";
 
 let id = 0;
-export function AddTodo() {
+export function TodoInput() {
   const dispatch = useDispatch();
   const [todoText, setTodoText] = useState("");
 
@@ -14,13 +14,16 @@ export function AddTodo() {
       setTodoText("");
     }
   }
-  function handleTextChange(e) {
-    setTodoText(e.target.value);
-  }
   return (
     <Grid container>
       <Grid item xs={11}>
-        <TextField value={todoText} onChange={handleTextChange} />
+        <TextField
+          value={todoText}
+          onChange={(e) => setTodoText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.code === "Enter") addTodoClick();
+          }}
+        />
       </Grid>
       <Grid item xs={1}>
         <Button onClick={addTodoClick}>Add todo</Button>
