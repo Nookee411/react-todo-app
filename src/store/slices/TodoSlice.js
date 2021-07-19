@@ -27,7 +27,15 @@ const todoSlice = createSlice({
       const todo = todos.find((elem) => elem.id === action.payload);
       todo.finished = !todo.finished;
     },
+
+    editTodo: (state, action) => {
+      const { id, editingText } = action.payload;
+      const editingTodo = state.todos.find((elem) => elem.id === id);
+      editingTodo.content = editingText;
+    },
   },
 });
 export default todoSlice;
-export const { addTodo, removeTodo, checkTodo } = todoSlice.actions;
+export const {
+  addTodo, removeTodo, checkTodo, editTodo,
+} = todoSlice.actions;
