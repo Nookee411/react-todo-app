@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import { removeTodo, checkTodo, editTodo } from '../store/slices/TodoSlice';
+import { TodoActions } from '../store/slices/TodoSlice';
 
 const EDITING_RESULT = {
   OK: 0,
@@ -36,17 +36,34 @@ export default function TodoItem(props) {
   const classes = useStyles();
   const { id, content, finished } = todo;
   const dispatch = useDispatch();
+
   function switchToEditing() {
     setEditing(true);
     setEditingText(content);
   }
+
   function finishEditing(result) {
     return () => {
       setEditing(false);
       if (result === EDITING_RESULT.OK) {
-        dispatch(editTodo({ id, editingText }));
+        dispatch(TodoActions.editTodo({ id, content: editingText }));
       }
     };
+  }
+
+  function handleInputKeyDown(e) {
+    switch (e.code) {
+      case 'Escape': {
+        finishEditing(EDITING_RESULT.CANCEL)();
+        break;
+      }
+      case 'Enter': {
+        finishEditing(EDITING_RESULT.OK)();
+        break;
+      }
+      default:
+        break;
+    }
   }
   return (
     <Card variant="outlined">
@@ -54,7 +71,10 @@ export default function TodoItem(props) {
         <CardContent>
           <Checkbox
             checked={finished}
-            onClick={() => dispatch(checkTodo(id))}
+            onClick={() => {
+              console.log(id, finished);
+              dispatch(TodoActions.editTodo({ id, finished: !finished }));
+            }}
           />
           <Typography
             paragraph
@@ -66,7 +86,7 @@ export default function TodoItem(props) {
 
           <IconButton
             aria-label="delete"
-            onClick={() => dispatch(removeTodo(id))}
+            onClick={() => dispatch(TodoActions.removeTodo(id))}
           >
             <DeleteIcon />
           </IconButton>
@@ -77,8 +97,10 @@ export default function TodoItem(props) {
       ) : (
         <CardContent>
           <TextField
+            autoFocus
             value={editingText}
             onChange={(e) => setEditingText(e.target.value)}
+            onKeyDown={handleInputKeyDown}
           />
           <IconButton onClick={finishEditing(EDITING_RESULT.OK)}>
             <CheckIcon />

@@ -1,4 +1,9 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+
+function findTodoById(state, id) {
+  return state.todos.find((elem) => elem.id === id);
+}
 
 const todoSlice = createSlice({
   name: 'todo',
@@ -12,30 +17,24 @@ const todoSlice = createSlice({
   },
   reducers: {
     addTodo: (state, action) => {
-      state.todos.push(action.payload);
+      const { id, content, finished } = action.payload;
+      state.todos.unshift({ id, content, finished });
     },
     removeTodo: (state, action) => {
-      const { todos } = state;
-      const index = todos.map((todo) => todo.id).indexOf(action.payload);
-      if (index >= 0) {
-        todos.splice(index, 1);
-      }
-    },
-    // pass id of todo as payloadAssignment to property of function parameter 'todo'
-    checkTodo: (state, action) => {
-      const { todos } = state;
-      const todo = todos.find((elem) => elem.id === action.payload);
-      todo.finished = !todo.finished;
+      state.todos = state.todos.filter((elem) => elem !== action.payload);
     },
 
-    editTodo: (state, action) => {
-      const { id, editingText } = action.payload;
-      const editingTodo = state.todos.find((elem) => elem.id === id);
-      editingTodo.content = editingText;
+    editTodo: (state, { payload: { id, content, finished } }) => {
+      const editingTodo = findTodoById(state, id);
+      if (finished !== undefined) editingTodo.finished = finished;
+      if (content !== undefined) editingTodo.content = content;
     },
   },
 });
+
+export const TodoSelectors = {
+  todos: (state) => state.todos,
+  length: (state) => state.todos.length,
+};
 export default todoSlice;
-export const {
-  addTodo, removeTodo, checkTodo, editTodo,
-} = todoSlice.actions;
+export const TodoActions = { ...todoSlice.actions };
