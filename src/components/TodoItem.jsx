@@ -10,7 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -36,7 +36,6 @@ export default function TodoItem(props) {
   const classes = useStyles();
   const { id, content, finished } = todo;
   const dispatch = useDispatch();
-
   function switchToEditing() {
     setEditing(true);
     setEditingText(content);
@@ -45,7 +44,6 @@ export default function TodoItem(props) {
     return () => {
       setEditing(false);
       if (result === EDITING_RESULT.OK) {
-        console.table({ id, editingText });
         dispatch(editTodo({ id, editingText }));
       }
     };
@@ -66,10 +64,13 @@ export default function TodoItem(props) {
             {content}
           </Typography>
 
-          <IconButton onClick={() => dispatch(removeTodo(id))}>
+          <IconButton
+            aria-label="delete"
+            onClick={() => dispatch(removeTodo(id))}
+          >
             <DeleteIcon />
           </IconButton>
-          <IconButton onClick={switchToEditing}>
+          <IconButton aria-label="edit" onClick={switchToEditing}>
             <EditIcon />
           </IconButton>
         </CardContent>
@@ -79,11 +80,11 @@ export default function TodoItem(props) {
             value={editingText}
             onChange={(e) => setEditingText(e.target.value)}
           />
-          <IconButton>
-            <CheckIcon onClick={finishEditing(EDITING_RESULT.OK)} />
+          <IconButton onClick={finishEditing(EDITING_RESULT.OK)}>
+            <CheckIcon />
           </IconButton>
-          <IconButton>
-            <CloseIcon onClick={finishEditing(EDITING_RESULT.CANCEL)} />
+          <IconButton onClick={finishEditing(EDITING_RESULT.CANCEL)}>
+            <CloseIcon />
           </IconButton>
         </CardContent>
       )}
@@ -92,9 +93,9 @@ export default function TodoItem(props) {
 }
 
 TodoItem.propTypes = {
-  todo: {
+  todo: PropTypes.shape({
     id: PropTypes.number.isRequired,
     content: PropTypes.string,
-    finished: PropTypes.bool,
-  }.isRequired,
+    finished: PropTypes.bool.isRequired,
+  }).isRequired,
 };
