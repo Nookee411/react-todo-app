@@ -16,7 +16,6 @@ import { useDispatch } from 'react-redux';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import { TodoActions } from '../store/slices/TodoSlice';
-import inputStyle from '../styles/inputStyle';
 
 const EDITING_RESULT = {
   OK: true,
@@ -29,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 8,
     border: `1px solid ${theme.palette.border.white.primary}`,
     color: theme.palette.white.primary,
+    marginBottom: theme.spacing(4),
   },
   cardContent: {
     display: 'flex',
@@ -37,23 +37,29 @@ const useStyles = makeStyles((theme) => ({
     '&:last-child': {
       padding: 16,
     },
+    '& .icon-group': {
+      flex: '0 0 15%',
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      flexFlow: 'row wrap',
+    },
   },
   content: {
-    ...theme.typography.p1,
+    ...theme.typography.p2,
     color: theme.palette.white.secondary,
     verticalAlign: 'middle',
     overflow: 'wrap',
+    flex: '0 0 80%',
   },
-  root: {
-    color: theme.palette.white.disabled,
-    '&.Mui-checked, & .MuiTouchRipple-root': {
-      color: theme.palette.accent.primary,
-    },
+  checkbox: {
+    flex: '0 0 5%',
   },
   icon: {
-    fill: theme.palette.icon.primary,
+    color: theme.palette.icon.primary,
   },
-  textField: inputStyle(theme),
+  textField: {
+    flex: '0 0 85%',
+  },
 
   finished: {
     textDecoration: 'line-through',
@@ -108,7 +114,7 @@ export default function TodoItem(props) {
             onClick={() => {
               dispatch(TodoActions.editTodo({ id, finished: !finished }));
             }}
-            className={classes.root}
+            className={classes.checkbox}
           />
           <Typography
             variant="body1"
@@ -117,7 +123,10 @@ export default function TodoItem(props) {
           >
             {content}
           </Typography>
-          <div>
+          <div className="icon-group">
+            <IconButton aria-label="edit" onClick={switchToEditing}>
+              <EditIcon className={classes.icon} />
+            </IconButton>
             <IconButton
               aria-label="delete"
               onClick={() => {
@@ -125,9 +134,6 @@ export default function TodoItem(props) {
               }}
             >
               <DeleteIcon className={classes.icon} />
-            </IconButton>
-            <IconButton aria-label="edit" onClick={switchToEditing}>
-              <EditIcon className={classes.icon} />
             </IconButton>
           </div>
         </CardContent>
@@ -141,12 +147,12 @@ export default function TodoItem(props) {
             className={classes.textField}
             label="edit"
           />
-          <div>
-            <IconButton onClick={finishEditing(EDITING_RESULT.OK)}>
-              <CheckIcon className={classes.icon} />
-            </IconButton>
+          <div className="icon-group">
             <IconButton onClick={finishEditing(EDITING_RESULT.CANCEL)}>
               <CloseIcon className={classes.icon} />
+            </IconButton>
+            <IconButton onClick={finishEditing(EDITING_RESULT.OK)}>
+              <CheckIcon className={classes.icon} />
             </IconButton>
           </div>
         </CardContent>

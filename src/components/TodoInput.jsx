@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { TodoActions, TodoSelectors } from '../store/slices/TodoSlice';
-import inputStyle from '../styles/inputStyle';
 
 let id;
 
@@ -11,17 +10,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '3em 0',
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(8),
   },
-  textField: inputStyle(theme),
-  button: {
-    backgroundColor: theme.palette.accent.primary,
-    marginLeft: '16px',
-    borderRadius: '8px',
-    padding: '8px 16px',
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.accent.secondary,
-    },
+  textField: {
+    flex: '0 0 50%',
+    marginRight: theme.spacing(4),
   },
 }));
 export default function TodoInput() {
@@ -30,7 +24,8 @@ export default function TodoInput() {
   const dispatch = useDispatch();
   const [todoText, setTodoText] = useState('');
 
-  function addTodoClick() {
+  function addTodoClick(e) {
+    e.preventDefault();
     if (todoText.length) {
       dispatch(
         TodoActions.addTodo({
@@ -43,19 +38,14 @@ export default function TodoInput() {
     }
   }
   return (
-    <div className={classes.container}>
+    <form className={classes.container} onSubmit={addTodoClick}>
       <TextField
         className={classes.textField}
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.code === 'Enter') addTodoClick();
-        }}
         label="Todo..."
       />
-      <Button className={classes.button} onClick={addTodoClick}>
-        Add todo
-      </Button>
-    </div>
+      <Button type="submit">Add todo</Button>
+    </form>
   );
 }

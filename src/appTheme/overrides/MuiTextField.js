@@ -1,11 +1,10 @@
-export default function inputStyle(theme) {
-  return {
+export default (theme, MuiTextField) => ({
+  root: {
     maxHeight: '3em',
     border: '1px solid rgb(255 255 255 / 40%)',
     borderRadius: 8,
     backgroundColor: 'transparent',
     color: theme.palette.white.primary,
-    flex: '0 0 50%',
     '& input': {
       ...theme.typography.p3,
       color: theme.palette.white.primary,
@@ -21,8 +20,6 @@ export default function inputStyle(theme) {
     '& label': {
       top: 0,
       ...theme.typography.p3,
-      // fontFamily: 'Univia Pro',
-      // fontSize: 16,
       color: theme.palette.white.secondary,
       padding: '0 0.8em',
     },
@@ -33,5 +30,5 @@ export default function inputStyle(theme) {
       transform: 'scale(0.875) translate(0, 0px)',
       color: theme.palette.white.disabled,
     },
-  };
-}
+  },
+});
