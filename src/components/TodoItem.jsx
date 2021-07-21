@@ -29,13 +29,14 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.border.white.primary}`,
     color: theme.palette.white.primary,
     marginBottom: theme.spacing(4),
+    maxWidth: '100%',
   },
   cardContent: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     '&:last-child': {
-      padding: 16,
+      padding: theme.spacing(4),
     },
     '& .icon-group': {
       flex: '0 0 15%',
@@ -45,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
-    ...theme.typography.p2,
+    ...theme.typography.p3,
     color: theme.palette.white.secondary,
     verticalAlign: 'middle',
-    overflow: 'wrap',
     flex: '0 0 80%',
+    marginBottom: 0,
   },
   checkbox: {
     flex: '0 0 5%',
@@ -117,7 +118,8 @@ export default function TodoItem(props) {
             className={classes.checkbox}
           />
           <Typography
-            variant="body1"
+            paragraph
+            noWrap={false}
             className={clsx(classes.content, finished && classes.finished)}
             hidden={false}
           >
