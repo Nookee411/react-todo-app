@@ -21,7 +21,7 @@ const todoSlice = createSlice({
       state.todos.unshift({ id, content, finished });
     },
     removeTodo: (state, action) => {
-      state.todos = state.todos.filter((elem) => elem !== action.payload);
+      state.todos = state.todos.filter((elem) => elem.id !== action.payload);
     },
 
     editTodo: (state, { payload: { id, content, finished } }) => {
@@ -36,5 +36,7 @@ export const TodoSelectors = {
   todos: (state) => state.todos,
   length: (state) => state.todos.length,
 };
-export default todoSlice;
+
 export const TodoActions = { ...todoSlice.actions };
+
+export default todoSlice;

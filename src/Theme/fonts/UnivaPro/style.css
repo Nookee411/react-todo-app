@@ -1,0 +1,142 @@
+@font-face {
+font-family: 'Univia Pro Regular';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Regular'), url('UniviaPro-Regular.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Italic'), url('UniviaPro-Italic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Thin';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Thin'), url('UniviaPro-Thin.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Thin Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Thin Italic'), url('UniviaPro-ThinItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Ultra Light';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Ultra Light'), url('UniviaPro-UltraLight.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Ultra Light Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Ultra Light Italic'), url('UniviaPro-UltraLightItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Light';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Light'), url('UniviaPro-Light.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Light Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Light Italic'), url('UniviaPro-LightItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Book';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Book'), url('UniviaPro-Book.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Book Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Book Italic'), url('UniviaPro-BookItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Medium';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Medium'), url('UniviaPro-Medium.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Medium Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Medium Italic'), url('UniviaPro-MediumItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Bold'), url('UniviaPro-Bold.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Bold Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Bold Italic'), url('UniviaPro-BoldItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Black';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Black'), url('UniviaPro-Black.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Black Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Black Italic'), url('UniviaPro-BlackItalic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Ultra';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Ultra'), url('UniviaPro-Ultra.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Univia Pro Ultra Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Univia Pro Ultra Italic'), url('UniviaPro-UltraItalic.woff') format('woff');
+}
