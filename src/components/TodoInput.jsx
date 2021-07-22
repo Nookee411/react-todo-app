@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { TodoActions, TodoSelectors } from '../store/slices/TodoSlice';
-
-let id;
+import { useDispatch } from 'react-redux';
+import { TodoActions } from '../store/slices/TodoSlice';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function TodoInput() {
   const classes = useStyles();
-  id = useSelector(TodoSelectors.length);
   const dispatch = useDispatch();
   const [todoText, setTodoText] = useState('');
 
@@ -29,7 +26,6 @@ export default function TodoInput() {
     if (todoText.length) {
       dispatch(
         TodoActions.addTodo({
-          id: (id += 1),
           content: todoText,
           finished: false,
         }),
@@ -45,7 +41,9 @@ export default function TodoInput() {
         onChange={(e) => setTodoText(e.target.value)}
         label="Todo..."
       />
-      <Button type="submit">Add todo</Button>
+      <Button type="submit" variant="contained">
+        Add todo
+      </Button>
     </form>
   );
 }

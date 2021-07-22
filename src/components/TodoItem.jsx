@@ -24,8 +24,8 @@ const EDITING_RESULT = {
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.surface.dark.secondary,
-    borderRadius: 8,
+    backgroundColor: theme.palette.surface.dark.primary,
+    borderRadius: theme.spacing(3),
     border: `1px solid ${theme.palette.border.white.primary}`,
     color: theme.palette.white.primary,
     marginBottom: theme.spacing(4),
@@ -33,27 +33,27 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
     '&:last-child': {
-      padding: theme.spacing(4),
+      padding: theme.spacing(2),
     },
     '& .icon-group': {
-      flex: '0 0 15%',
-      display: 'flex',
-      justifyContent: 'space-evenly',
-      flexFlow: 'row wrap',
+      flex: '0 0 100%',
+      textAlign: 'right',
     },
   },
   content: {
+    flex: '0 0 85%',
     ...theme.typography.p3,
     color: theme.palette.white.secondary,
-    verticalAlign: 'middle',
-    flex: '0 0 80%',
+    paddingTop: theme.spacing(1),
     marginBottom: 0,
+    display: 'flex',
+    alignItems: 'center',
   },
   checkbox: {
-    flex: '0 0 5%',
+    // flex: '0 0 10%',
   },
   icon: {
     color: theme.palette.icon.primary,
@@ -165,7 +165,7 @@ export default function TodoItem(props) {
 
 TodoItem.propTypes = {
   todo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     content: PropTypes.string,
     finished: PropTypes.bool.isRequired,
   }).isRequired,

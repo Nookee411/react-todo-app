@@ -4,21 +4,21 @@ import { createSlice } from '@reduxjs/toolkit';
 function findTodoById(state, id) {
   return state.todos.find((elem) => elem.id === id);
 }
-
+let todoID = 0;
 const todoSlice = createSlice({
   name: 'todo',
   initialState: {
     todos: [
-      { id: 0, content: 'Buy milk', finished: false },
-      { id: 1, content: 'Buy bread', finished: false },
-      { id: 2, content: 'Buy butter', finished: true },
-      { id: 3, content: 'Buy silk', finished: false },
+      { id: (todoID += 1), content: 'Buy milk', finished: false },
+      { id: (todoID += 1), content: 'Buy bread', finished: false },
+      { id: (todoID += 1), content: 'Buy butter', finished: true },
+      { id: (todoID += 1), content: 'Buy silk', finished: false },
     ],
   },
   reducers: {
     addTodo: (state, action) => {
-      const { id, content, finished } = action.payload;
-      state.todos.unshift({ id, content, finished });
+      const { content, finished } = action.payload;
+      state.todos.unshift({ id: (todoID += 1), content, finished });
     },
     removeTodo: (state, action) => {
       state.todos = state.todos.filter((elem) => elem.id !== action.payload);

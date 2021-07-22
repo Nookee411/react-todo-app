@@ -1,8 +1,8 @@
-export default (theme, MuiTextField) => ({
+export default (theme, MuiTextField = {}) => ({
   root: {
     maxHeight: '3em',
     border: '1px solid rgb(255 255 255 / 40%)',
-    borderRadius: 8,
+    borderRadius: theme.spacing(2),
     backgroundColor: 'transparent',
     color: theme.palette.white.primary,
     '& input': {

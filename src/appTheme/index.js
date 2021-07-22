@@ -57,6 +57,6 @@ const AppTheme = createTheme({
     },
   },
 });
-// AppTheme.border = (width, style, color) => `${width}px ${style} ${color}`;
+AppTheme.border = (width, style, color) => `${width}px ${style} ${color}`;
 AppTheme.overrides = overrides(AppTheme, AppTheme.overrides);
 export default AppTheme;

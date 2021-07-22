@@ -1,4 +1,4 @@
-export default (theme, MiuCheckbox) => ({
+export default (theme, MiuCheckbox = {}) => ({
   root: {
     color: theme.palette.white.disabled,
   },
