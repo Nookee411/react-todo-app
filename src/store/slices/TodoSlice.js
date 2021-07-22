@@ -1,24 +1,24 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import db from '../../database';
 
 function findTodoById(state, id) {
   return state.todos.find((elem) => elem.id === id);
 }
-let todoID = 0;
+
+export const fetchTodos = createAsyncThunk(
+  'todos/fetchTodos',
+  async () => db.getState,
+);
+
 const todoSlice = createSlice({
   name: 'todo',
   initialState: {
-    todos: [
-      { id: (todoID += 1), content: 'Buy milk', finished: false },
-      { id: (todoID += 1), content: 'Buy bread', finished: false },
-      { id: (todoID += 1), content: 'Buy butter', finished: true },
-      { id: (todoID += 1), content: 'Buy silk', finished: false },
-    ],
+    todos: [],
   },
   reducers: {
     addTodo: (state, action) => {
-      const { content, finished } = action.payload;
-      state.todos.unshift({ id: (todoID += 1), content, finished });
+      db.addTodo(action.payload);
     },
     removeTodo: (state, action) => {
       state.todos = state.todos.filter((elem) => elem.id !== action.payload);
@@ -28,6 +28,18 @@ const todoSlice = createSlice({
       const editingTodo = findTodoById(state, id);
       if (finished !== undefined) editingTodo.finished = finished;
       if (content !== undefined) editingTodo.content = content;
+    },
+  },
+
+  extraReducers: {
+    [fetchTodos.pending]: (state, action) => {
+      console.log('pending users');
+    },
+    [fetchTodos.fulfilled]: (state, { payload }) => {
+      state.todos = payload.map((todo) => ({
+        ...todo,
+        finished: !!todo.finished,
+      }));
     },
   },
 });
