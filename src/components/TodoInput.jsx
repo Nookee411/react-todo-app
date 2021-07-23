@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(4),
   },
 }));
+
 export default function TodoInput() {
   const classes = useStyles();
   const dispatch = useDispatch();
