@@ -21,10 +21,9 @@ const db = openDatabase(
 //     'CREATE TABLE IF NOT EXISTS TODO (id TEXT PRIMARY KEY, content TEXT, finished INTEGER)',
 //   );
 // });
-
-const selectFromDB = new Promise((resolve) => {
-  const state = [];
-  db.transaction((tx) => {
+const fetchTodos = (tx) =>
+  new Promise((resolve) => {
+    const state = [];
     tx.executeSql('SELECT * FROM TODO', [], (resTx, res) => {
       const { length } = res.rows;
       for (let i = 0; i < length; i += 1) {
@@ -33,57 +32,41 @@ const selectFromDB = new Promise((resolve) => {
       resolve(state);
     });
   });
+
+const selectFromDB = new Promise((resolve) => {
+  db.transaction((tx) => {
+    fetchTodos(tx).then((res) => resolve(res));
+  });
 });
 
 const insertIntoDB = ({ id, content, finished }) =>
   new Promise((resolve) => {
-    const state = [];
     db.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO TODO (id, content, finished) values(?, ?, ?)',
         [id, content, finished ? 1 : 0],
       );
-      tx.executeSql('SELECT * FROM TODO', [], (resTx, res) => {
-        const { length } = res.rows;
-        for (let i = 0; i < length; i += 1) {
-          state.push(res.rows[i]);
-        }
-        resolve(state);
-      });
+      fetchTodos(tx).then((res) => resolve(res));
     });
   });
 
 const removeFromBD = (id) =>
   new Promise((resolve) => {
-    const state = [];
     db.transaction((tx) => {
       tx.executeSql('DELETE FROM TODO WHERE id=?', [id]);
-      tx.executeSql('SELECT * FROM TODO', [], (resTx, res) => {
-        const { length } = res.rows;
-        for (let i = 0; i < length; i += 1) {
-          state.push(res.rows[i]);
-        }
-        resolve(state);
-      });
+      fetchTodos(tx).then((res) => resolve(res));
     });
   });
 
 const editTodoInBd = ({ id, todo: { content, finished } }) =>
   new Promise((resolve) => {
-    const state = [];
     db.transaction((tx) => {
       tx.executeSql('UPDATE TODO SET content=?, finished=?  WHERE id=?', [
         content,
         finished ? 1 : 0,
         id,
       ]);
-      tx.executeSql('SELECT * FROM TODO', [], (resTx, res) => {
-        const { length } = res.rows;
-        for (let i = 0; i < length; i += 1) {
-          state.push(res.rows[i]);
-        }
-        resolve(state);
-      });
+      fetchTodos(tx).then((res) => resolve(res));
     });
   });
 

@@ -27,14 +27,12 @@ export const editTodo = createAsyncThunk(
   ({ id, todo }, thunkAPI) => {
     const { todos } = thunkAPI.getState();
     let editingTodo = findTodoById(todos, id);
-    console.log(editingTodo);
     editingTodo = {
       ...editingTodo,
       content: todo.content || editingTodo.content,
       finished:
         todo.finished === undefined ? editingTodo.finished : todo.finished,
     };
-    console.log(editingTodo);
     return db.editTodo({ id, todo: editingTodo });
   },
 );
