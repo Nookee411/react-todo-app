@@ -68,7 +68,7 @@ const removeFromBD = (id) =>
     });
   });
 
-const editTodoInBd = ({ id, content, finished }) =>
+const editTodoInBd = ({ id, todo: { content, finished } }) =>
   new Promise((resolve) => {
     const state = [];
     db.transaction((tx) => {

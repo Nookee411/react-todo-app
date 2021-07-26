@@ -11,9 +11,7 @@ export default function TodoList() {
   }, []);
   return (
     <div>
-      {todoList.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      {todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />).reverse()}
     </div>
   );
 }

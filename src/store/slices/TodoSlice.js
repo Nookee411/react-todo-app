@@ -24,19 +24,30 @@ export const removeTodo = createAsyncThunk('todos/removeTodo', (id) =>
 
 export const editTodo = createAsyncThunk(
   'todos/editTodo',
-  ({ id, content, finished }, thunkAPI) => {
+  ({ id, todo }, thunkAPI) => {
     const { todos } = thunkAPI.getState();
-    const todo = findTodoById(todos, id);
-    content = content !== undefined ? content : todo.content;
-    finished = finished !== undefined ? finished : todo.finished;
-    return db.editTodo({ id, content, finished });
+    let editingTodo = findTodoById(todos, id);
+    console.log(editingTodo);
+    editingTodo = {
+      ...editingTodo,
+      content: todo.content || editingTodo.content,
+      finished:
+        todo.finished === undefined ? editingTodo.finished : todo.finished,
+    };
+    console.log(editingTodo);
+    return db.editTodo({ id, todo: editingTodo });
   },
 );
 
-const mapTodos = (todoList) => todoList.map((todo) => ({
-  ...todo,
-  finished: !!todo.finished,
-}));
+const mapTodos = (todoList) =>
+  todoList.map((todo) => ({
+    ...todo,
+    finished: !!todo.finished,
+  }));
+
+const updateTodos = (state, { payload }) => {
+  state.todos = mapTodos(payload);
+};
 
 const todoSlice = createSlice({
   name: 'todo',
@@ -46,18 +57,10 @@ const todoSlice = createSlice({
   reducers: {},
 
   extraReducers: {
-    [fetchTodos.fulfilled]: (state, { payload }) => {
-      state.todos = mapTodos(payload);
-    },
-    [addTodo.fulfilled]: (state, { payload }) => {
-      state.todos = mapTodos(payload);
-    },
-    [removeTodo.fulfilled]: (state, { payload }) => {
-      state.todos = mapTodos(payload);
-    },
-    [editTodo.fulfilled]: (state, { payload }) => {
-      state.todos = mapTodos(payload);
-    },
+    [fetchTodos.fulfilled]: updateTodos,
+    [addTodo.fulfilled]: updateTodos,
+    [removeTodo.fulfilled]: updateTodos,
+    [editTodo.fulfilled]: updateTodos,
   },
 });
 

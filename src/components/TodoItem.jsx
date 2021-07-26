@@ -87,7 +87,8 @@ export default function TodoItem(props) {
     return () => {
       setEditing(false);
       if (result === EDITING_RESULT.OK) {
-        dispatch(TodoActions.editTodo({ id, content: editingText }));
+        const newTodo = { content: editingText };
+        dispatch(TodoActions.editTodo({ id, todo: newTodo }));
       }
     };
   }
@@ -113,7 +114,9 @@ export default function TodoItem(props) {
           <Checkbox
             checked={finished}
             onClick={() => {
-              dispatch(TodoActions.editTodo({ id, finished: !finished }));
+              dispatch(
+                TodoActions.editTodo({ id, todo: { finished: !finished } }),
+              );
             }}
             className={classes.checkbox}
           />
