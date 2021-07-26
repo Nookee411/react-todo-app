@@ -1,22 +1,27 @@
-import React from 'react';
-import { CssBaseline, Container, Typography } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
-import TodoInput from './components/TodoInput';
-import TodoList from './components/TodoList';
-import AppTheme from './appTheme/index';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Container, Typography } from '@material-ui/core';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import FullTodos from './pages/FullTodos';
+import ExtendedTodo from './pages/ExtendedTodo';
+import { TodoActions } from './store/slices/TodoSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  dispatch(TodoActions.fetchTodos());
   return (
-    <ThemeProvider theme={AppTheme}>
-      <CssBaseline />
-      <Container maxWidth="md">
+    <BrowserRouter>
+      <Container>
         <Typography variant="h1" align="center">
           TODO APP
         </Typography>
-        <TodoInput />
-        <TodoList />
+        <Switch>
+          <Route exact path="/" component={FullTodos} />
+          <Route path="/todo/:id" component={ExtendedTodo} />
+          <Redirect to="/" />
+        </Switch>
       </Container>
-    </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
