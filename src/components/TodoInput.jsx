@@ -37,6 +37,7 @@ export default function TodoInput() {
   return (
     <form className={classes.container} onSubmit={addTodoClick}>
       <TextField
+        fullWidth
         className={classes.textField}
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}

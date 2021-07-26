@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import { Link as NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import CheckIcon from '@material-ui/icons/Check';
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TodoItem(props) {
   const [isEditing, setEditing] = useState(false);
   const [editingText, setEditingText] = useState('');
-  const { todo } = props;
+  const { todo, expanded } = props;
   const classes = useStyles();
   const { id, content, finished } = todo;
   const dispatch = useDispatch();
@@ -121,18 +122,17 @@ export default function TodoItem(props) {
             }}
             className={classes.checkbox}
           />
-          <NavLink to={`/todo/${id}`}>
-            <div>
-              <Typography
-                paragraph
-                noWrap={false}
-                className={clsx(classes.content, finished && classes.finished)}
-                hidden={false}
-              >
-                {content}
-              </Typography>
-            </div>
-          </NavLink>
+
+          <div>
+            <Typography
+              paragraph
+              noWrap={false}
+              className={clsx(classes.content, finished && classes.finished)}
+              hidden={false}
+            >
+              {content}
+            </Typography>
+          </div>
           <div className="icon-group">
             <IconButton aria-label="edit" onClick={switchToEditing}>
               <EditIcon className={classes.icon} />
@@ -145,6 +145,13 @@ export default function TodoItem(props) {
             >
               <DeleteIcon className={classes.icon} />
             </IconButton>
+            {!expanded && (
+              <NavLink to={`/todo/${id}`}>
+                <IconButton aria-label="fullscreen">
+                  <FullscreenIcon className={classes.icon} />
+                </IconButton>
+              </NavLink>
+            )}
           </div>
         </CardContent>
       ) : (
@@ -177,4 +184,5 @@ TodoItem.propTypes = {
     content: PropTypes.string,
     finished: PropTypes.bool.isRequired,
   }).isRequired,
+  expanded: PropTypes.bool.isRequired,
 };

@@ -13,7 +13,7 @@ function ExtendedTodo(props) {
   return (
     <div>
       {todoList.length ? (
-        <TodoItem todo={todoList.find((todo) => id === todo.id)} />
+        <TodoItem todo={todoList.find((todo) => id === todo.id)} expanded />
       ) : (
         <LoadingIcon />
       )}

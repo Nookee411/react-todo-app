@@ -7,7 +7,9 @@ export default function TodoList() {
   const todoList = useSelector(TodoSelectors.todos);
   return (
     <div>
-      {todoList.map((todo) => <TodoItem key={todo.id} todo={todo} />).reverse()}
+      {todoList
+        .map((todo) => <TodoItem key={todo.id} todo={todo} expanded={false} />)
+        .reverse()}
     </div>
   );
 }
