@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
+import { Link as NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -121,16 +121,18 @@ export default function TodoItem(props) {
             }}
             className={classes.checkbox}
           />
-          <Link to={`/todo/${id}`}>
-            <Typography
-              paragraph
-              noWrap={false}
-              className={clsx(classes.content, finished && classes.finished)}
-              hidden={false}
-            >
-              {content}
-            </Typography>
-          </Link>
+          <NavLink to={`/todo/${id}`}>
+            <div>
+              <Typography
+                paragraph
+                noWrap={false}
+                className={clsx(classes.content, finished && classes.finished)}
+                hidden={false}
+              >
+                {content}
+              </Typography>
+            </div>
+          </NavLink>
           <div className="icon-group">
             <IconButton aria-label="edit" onClick={switchToEditing}>
               <EditIcon className={classes.icon} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Typography } from '@material-ui/core';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Container>
-        <Typography variant="h1" align="center">
+        <Typography variant="h1" align="center" gutterBottom>
           TODO APP
         </Typography>
         <Switch>
