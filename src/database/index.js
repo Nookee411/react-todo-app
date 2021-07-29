@@ -1,39 +1,35 @@
-// Provide object of database methods for CRUD in webDB
+import axios from 'axios';
 
 const URL_BASE = new URL('http://localhost:3000/todos/');
+
 const REQUEST_COMMON_HEADERS = {
   'Content-Type': 'application/json;charset=utf-8',
 };
-const fetchTodos = () =>
-  fetch(URL_BASE).then((response) => {
-    if (response.ok) return response.json();
-    throw new Error('fetch Eror');
-  });
+const fetchTodos = () => axios.get(URL_BASE).then((res) => res.data);
 
 const addTodo = (content) =>
-  fetch(URL_BASE, {
-    method: 'POST',
-    headers: { ...REQUEST_COMMON_HEADERS },
-    body: JSON.stringify({ content }),
-  }).then(() => fetchTodos());
+  axios
+    .post(URL_BASE, {
+      content,
+    })
+    .then(() => fetchTodos());
 
 const removeTodo = (id) =>
-  fetch(URL_BASE, {
-    method: 'DELETE',
-    headers: {
-      ...REQUEST_COMMON_HEADERS,
-    },
-    body: JSON.stringify({ id }),
-  }).then(() => fetchTodos());
+  axios
+    .delete(URL_BASE, {
+      data: {
+        id,
+      },
+    })
+    .then(() => fetchTodos());
 
 const updateTodo = ({ id, todo }) =>
-  fetch(URL_BASE, {
-    method: 'PUT',
-    headers: {
-      ...REQUEST_COMMON_HEADERS,
-    },
-    body: JSON.stringify({ id, todo }),
-  }).then(() => fetchTodos());
+  axios
+    .put(URL_BASE, {
+      id,
+      todo,
+    })
+    .then(() => fetchTodos());
 
 const findTodoById = (id) =>
   fetch(URL_BASE, {
