@@ -23,8 +23,8 @@ const EDITING_RESULT = {
   OK: true,
   CANCEL: false,
 };
-
 const useStyles = makeStyles((theme) => ({
+
   card: {
     backgroundColor: theme.palette.surface.dark.primary,
     borderRadius: theme.spacing(3),
@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.white.primary,
     marginBottom: theme.spacing(4),
     maxWidth: '100%',
+    transition: 'transform 150ms ease-in, box-shadow 150ms linear',
+    '&:hover': {
+      boxShadow: `0 0 10px ${theme.palette.accent.tertiary}`,
+      transform: 'translateY(-1%)',
+    },
   },
   cardContent: {
     display: 'flex',

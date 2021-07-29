@@ -1,40 +1,22 @@
 /* eslint-disable function-paren-newline */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
-import db from '../../database';
+import db from '../../database/index';
 
-function findTodoById(todos, id) {
-  return todos.find((elem) => elem.id === id);
-}
-
-export const fetchTodos = createAsyncThunk(
-  'todos/fetchTodos',
-  () => db.getState,
+export const fetchTodos = createAsyncThunk('todos/fetchTodos', () =>
+  db.fetchTodos(),
 );
 
-export const addTodo = createAsyncThunk(
-  'todos/addTodo',
-  ({ content, finished }) => db.addTodo({ id: uuidv4(), content, finished }),
+export const addTodo = createAsyncThunk('todos/addTodo', ({ content }) =>
+  db.addTodo(content),
 );
 
 export const removeTodo = createAsyncThunk('todos/removeTodo', (id) =>
   db.removeTodo(id),
 );
 
-export const editTodo = createAsyncThunk(
-  'todos/editTodo',
-  ({ id, todo }, thunkAPI) => {
-    const { todos } = thunkAPI.getState();
-    let editingTodo = findTodoById(todos, id);
-    editingTodo = {
-      ...editingTodo,
-      content: todo.content || editingTodo.content,
-      finished:
-        todo.finished === undefined ? editingTodo.finished : todo.finished,
-    };
-    return db.editTodo({ id, todo: editingTodo });
-  },
+export const editTodo = createAsyncThunk('todos/editTodo', ({ id, ...data }) =>
+  db.updateTodo({ id, ...data }),
 );
 
 const mapTodos = (todoList) =>
