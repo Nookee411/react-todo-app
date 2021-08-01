@@ -1,10 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TodoItem from './TodoItem';
-import { TodoSelectors } from '../store/slices/TodoSlice';
-import LoadingIcon from '../icons/LoadingIcon';
+import { TodoActions, TodoSelectors } from '../store/slices/TodoSlice';
 
+let isFetched = false;
 export default function TodoList() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!isFetched) dispatch(TodoActions.fetchTodos());
+    isFetched = true;
+  }, []);
+
   const todoList = useSelector(TodoSelectors.todos);
   return (
     <div>

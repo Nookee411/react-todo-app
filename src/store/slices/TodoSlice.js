@@ -3,20 +3,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import db from '../../database/index';
 
-export const fetchTodos = createAsyncThunk('todos/fetchTodos', () =>
-  db.fetchTodos(),
+export const fetchTodos = createAsyncThunk(
+  'todos/fetchTodos',
+  (action, thunkAPI) => db.fetchTodos(thunkAPI.getState().user.id),
 );
 
-export const addTodo = createAsyncThunk('todos/addTodo', ({ content }) =>
-  db.addTodo(content),
+export const addTodo = createAsyncThunk(
+  'todos/addTodo',
+  ({ content }, trunkAPI) => db.addTodo(content, trunkAPI.getState().user.id),
 );
 
-export const removeTodo = createAsyncThunk('todos/removeTodo', (id) =>
-  db.removeTodo(id),
+export const removeTodo = createAsyncThunk('todos/removeTodo', (id, thunkAPI) =>
+  db.removeTodo(id, thunkAPI.getState().user.id),
 );
 
-export const editTodo = createAsyncThunk('todos/editTodo', ({ id, ...data }) =>
-  db.updateTodo({ id, ...data }),
+export const editTodo = createAsyncThunk(
+  'todos/editTodo',
+  ({ id, ...data }, thunkAPI) =>
+    db.updateTodo({ id, ...data }, thunkAPI.getState().user.id),
 );
 
 const mapTodos = (todoList) =>
@@ -26,13 +30,13 @@ const mapTodos = (todoList) =>
   }));
 
 const updateTodos = (state, { payload }) => {
-  state.todos = mapTodos(payload);
+  state.items = mapTodos(payload);
 };
 
 const todoSlice = createSlice({
   name: 'todo',
   initialState: {
-    todos: [],
+    items: [],
   },
   reducers: {},
 
@@ -45,8 +49,8 @@ const todoSlice = createSlice({
 });
 
 export const TodoSelectors = {
-  todos: (state) => state.todos,
-  length: (state) => state.todos.length,
+  todos: (state) => state.todos.items,
+  length: (state) => state.todos.items.length,
 };
 
 export const TodoActions = {
