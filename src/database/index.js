@@ -2,40 +2,40 @@ import axios from 'axios';
 
 const URL_BASE = new URL('http://localhost:3000/todos/');
 
-const fetchTodos = (userID) =>
-  axios.get(`${URL_BASE}/?userID=${userID}`).then((res) => res.data);
+const fetchTodos = (username) =>
+  axios.get(`${URL_BASE}/?username=${username}`).then((res) => res.data);
 
-const addTodo = (content, userID) =>
+const addTodo = (content, username) =>
   axios
     .post(URL_BASE, {
       content,
-      userID,
+      userID: username,
     })
-    .then(() => fetchTodos(userID));
+    .then(() => fetchTodos(username));
 
-const removeTodo = (id, userID) =>
+const removeTodo = (id, username) =>
   axios
     .delete(URL_BASE, {
       data: {
         id,
       },
     })
-    .then(() => fetchTodos(userID));
+    .then(() => fetchTodos(username));
 
-const updateTodo = ({ id, todo }, userID) =>
+const updateTodo = ({ id, todo }, username) =>
   axios
     .put(URL_BASE, {
       id,
       todo,
     })
-    .then(() => fetchTodos(userID));
+    .then(() => fetchTodos(username));
 
-const findTodoById = (id, userID) =>
+const findTodoById = (id, username) =>
   axios
     .get(URL_BASE, {
       id,
     })
-    .then(() => fetchTodos(userID));
+    .then(() => fetchTodos(username));
 
 export default {
   fetchTodos,
