@@ -2,12 +2,16 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import UserAPI from '../../api/UserAPI';
 
 const signInUser = createAsyncThunk('/users/signin', ({ login, password }) =>
-  axios
-    .post('http://localhost:3000/user/signin', { login, password })
-    .then((res) => res.data),
+  UserAPI.signUser({ login, password }),
 );
+
+const registerUser = createAsyncThunk('/users/signup', ({ login, password }) =>
+  UserAPI.registerUser({ login, password }),
+);
+
 const userSlice = createSlice({
   name: 'todo',
   initialState: {
@@ -21,9 +25,13 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
-    [signInUser.fulfilled]: (state, { payload: { id, name } }) => {
-      state.id = id;
-      state.name = name;
+    [signInUser.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.id = payload.id;
+      state.name = payload.name;
+    },
+    [registerUser.fulfilled]: (state, { payload }) => {
+      console.log('register');
     },
   },
 });

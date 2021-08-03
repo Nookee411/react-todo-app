@@ -29,6 +29,7 @@ function App() {
           />
           <Route path={ROUTES.PAGES.LOGIN}>
             {user !== null ? <Redirect to={ROUTES.PAGES.MAIN} /> : <SignIN />}
+            {/* <SignIN /> */}
           </Route>
           <Route path={ROUTES.PAGES.REGISTER} component={Register} />
         </Switch>

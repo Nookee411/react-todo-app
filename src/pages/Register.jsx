@@ -6,8 +6,9 @@ import {
   Typography,
   Button,
 } from '@material-ui/core';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import { UserActions } from '../store/slices/UserSlice';
 import ROUTES from '../routes.config';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,14 +37,11 @@ const Register = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const submitUserSignUp = () => {
-    axios
-      .post('http://localhost:3000/user/signup', { login, password })
-      .then((res) => {
-        if (res.status <= 300) history.push(ROUTES.PAGES.LOGIN);
-      });
+    dispatch(UserActions.registerUser({ login, password }));
   };
 
   return (

@@ -1,26 +1,27 @@
 /* eslint-disable function-paren-newline */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import db from '../../database/index';
+import TodoAPI from '../../api/TodoAPI';
 
 export const fetchTodos = createAsyncThunk(
   'todos/fetchTodos',
-  (action, thunkAPI) => db.fetchTodos(thunkAPI.getState().user.id),
+  (action, thunkAPI) => TodoAPI.fetchTodos(thunkAPI.getState().user.id),
 );
 
 export const addTodo = createAsyncThunk(
   'todos/addTodo',
-  ({ content }, trunkAPI) => db.addTodo(content, trunkAPI.getState().user.id),
+  ({ content }, trunkAPI) =>
+    TodoAPI.addTodo(content, trunkAPI.getState().user.id),
 );
 
 export const removeTodo = createAsyncThunk('todos/removeTodo', (id, thunkAPI) =>
-  db.removeTodo(id, thunkAPI.getState().user.id),
+  TodoAPI.removeTodo(id, thunkAPI.getState().user.id),
 );
 
 export const editTodo = createAsyncThunk(
   'todos/editTodo',
   ({ id, ...data }, thunkAPI) =>
-    db.updateTodo({ id, ...data }, thunkAPI.getState().user.id),
+    TodoAPI.updateTodo({ id, ...data }, thunkAPI.getState().user.id),
 );
 
 const mapTodos = (todoList) =>

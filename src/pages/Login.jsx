@@ -42,7 +42,6 @@ const Login = () => {
 
   const submitUserLogin = async () => {
     await dispatch(UserActions.signInUser({ login, password }));
-    await dispatch(TodoActions.fetchTodos());
   };
   return (
     <Paper className={classes.root}>
