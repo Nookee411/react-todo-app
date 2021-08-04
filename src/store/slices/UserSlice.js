@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import RESOURCES from '../../../resources';
 import UserAPI from '../../api/UserAPI';
 
 const signInUser = createAsyncThunk('/users/signin', ({ login, password }) =>
@@ -13,7 +14,7 @@ const registerUser = createAsyncThunk('/users/signup', ({ login, password }) =>
 );
 
 const tryRestoreUser = createAsyncThunk('/users/restore', () => {
-  const token = Cookies.get('ACCESS_TOKEN');
+  const token = Cookies.get(RESOURCES.STRINGS.ACCESS_TOKEN);
   if (token) return UserAPI.restoreUser(token);
 });
 
@@ -34,7 +35,7 @@ const userSlice = createSlice({
     [signInUser.fulfilled]: (state, { payload }) => {
       state.id = payload.data.user.id;
       state.name = payload.data.user.name;
-      Cookies.set('ACCESS_TOKEN', payload.data.user.token);
+      Cookies.set(RESOURCES.STRINGS.ACCESS_TOKEN, payload.data.user.token);
     },
     [registerUser.fulfilled]: (state, { payload }) => {
       console.log('register');

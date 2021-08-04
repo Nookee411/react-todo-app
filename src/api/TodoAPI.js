@@ -1,10 +1,11 @@
 /* eslint-disable consistent-return */
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import RESOURCES from '../../resources';
 
 const URL_BASE = new URL('http://localhost:3000/todos/');
 const HEADERS = {
-  Bearer: Cookies.get('ACCESS_TOKEN'),
+  Bearer: Cookies.get(RESOURCES.STRINGS.ACCESS_TOKEN),
 };
 
 const fetchTodos = () =>
