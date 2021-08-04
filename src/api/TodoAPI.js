@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 const URL_BASE = new URL('http://localhost:3000/todos/');
 const HEADERS = {
-  Bearer: Cookies.get('ACCES_TOKEN'),
+  Bearer: Cookies.get('ACCESS_TOKEN'),
 };
 
 const fetchTodos = () =>
@@ -14,7 +14,7 @@ const fetchTodos = () =>
         ...HEADERS,
       },
     })
-    .then((res) => res.data);
+    .then((res) => res.data.data);
 
 const addTodo = (content) =>
   axios
