@@ -24,7 +24,6 @@ function Profile() {
   return (
     username && (
       <Paper className={classes.card}>
-        {' '}
         <Typography>{username}</Typography>
         <Button
           onClick={() => {

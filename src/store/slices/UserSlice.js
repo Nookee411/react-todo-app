@@ -59,6 +59,7 @@ export const UserActions = {
   ...userSlice.actions,
   signInUser,
   tryRestoreUser,
+  registerUser,
 };
 
 export default userSlice;

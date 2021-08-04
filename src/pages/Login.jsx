@@ -63,7 +63,7 @@ const Login = () => {
         value={password}
         onChange={(e) => setPaasword(e.target.value)}
       />
-      <div className={classes.buttons}>
+      <form className={classes.buttons}>
         <Button variant="contained" onClick={submitUserLogin}>
           Sign in
         </Button>
@@ -74,7 +74,7 @@ const Login = () => {
         >
           Go to Register
         </Button>
-      </div>
+      </form>
     </Paper>
   );
 };

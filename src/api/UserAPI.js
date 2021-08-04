@@ -20,5 +20,6 @@ const restoreUser = (token) =>
     )
     .then((res) => res.data);
 
-const UserAPI = { signUser, registerUser, restoreUser };
+const checkUsername = (name) => axios.get(`${URL_BASE}check?name=${name}`);
+const UserAPI = { signUser, registerUser, restoreUser, checkUsername };
 export default UserAPI;
